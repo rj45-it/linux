@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * SM7125 camera override
+ *
+ */
+
+&camcc {
+	compatible = "qcom,sm7125-camcc";
+};
+
+&camss {
+	compatible = "qcom,sm7125-camss";
+};
+
+&cci0 {
+	compatible = "qcom,sm7125-cci", "qcom,msm8996-cci";
+};
+
+&cci1 {
+	compatible = "qcom,sm7125-cci", "qcom,msm8996-cci";
+};

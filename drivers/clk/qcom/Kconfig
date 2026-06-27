@@ -532,6 +532,14 @@ config SC_CAMCC_7180
 	  Say Y if you want to support camera devices and functionality such as
 	  capturing pictures.
 
+config SM_CAMCC_7125
+	tristate "SM7125 Camera Clock Controller"
+	depends on ARM64
+	help
+	  Support for the camera clock controller on SM7125 (Snapdragon 720G)
+	  devices. Say Y if you want to support camera hardware on devices
+	  such as the Samsung Galaxy A52 4G.
+
 config SC_CAMCC_7280
 	tristate "SC7280 Camera Clock Controller"
 	depends on ARM64 || COMPILE_TEST
