@@ -1066,7 +1066,7 @@ static int cam_cc_sm7125_probe(struct platform_device *pdev)
 	clk_agera_pll_configure(&cam_cc_pll2, regmap, &cam_cc_pll2_config);
 	clk_fabia_pll_configure(&cam_cc_pll3, regmap, &cam_cc_pll3_config);
 
-	ret = qcom_cc_really_probe(&pdev->dev, &cam_cc_sm7125_desc, regmap);
+	ret = qcom_cc_really_probe(pdev, &cam_cc_sm7125_desc, regmap);
 	if (ret) {
 		dev_err(&pdev->dev, "Failed to register Camera CC clocks\n");
 		goto err_put_rpm;
