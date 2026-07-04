@@ -486,3 +486,4 @@
 			<&gpi_dma1 1 1 QCOM_GPI_I2C>;
 	dma-names = "tx", "rx";
 };
+#include "sm7125-camera.dtsi"
