@@ -14,3 +14,4 @@
 &cpu5 { compatible = "qcom,kryo465"; };
 &cpu6 { compatible = "qcom,kryo465"; };
 &cpu7 { compatible = "qcom,kryo465"; };
+#include "sm7125-camera.dtsi"
