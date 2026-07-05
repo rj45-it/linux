@@ -10,12 +10,15 @@
 
 &camss {
 	compatible = "qcom,sm7125-camss";
+	status = "okay";
 };
 
 &cci0 {
 	compatible = "qcom,sm7125-cci", "qcom,msm8996-cci";
+	status = "okay";
 };
 
 &cci1 {
 	compatible = "qcom,sm7125-cci", "qcom,msm8996-cci";
+	status = "okay";
 };
