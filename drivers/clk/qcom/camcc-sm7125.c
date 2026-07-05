@@ -920,7 +920,7 @@ BRANCH_NO_PARENT(cam_cc_sys_tmr_clk, 0xb0a8);
 /* GDSCs */
 static struct gdsc titan_top_gdsc = {
 	.gdscr = 0xb134,
-	.pd = { .name = "titan_top_gdsc" },
+	.pd = { .name = "top" },
 	.pwrsts = PWRSTS_OFF_ON,
 	.flags = ALWAYS_ON,
 };
@@ -934,14 +934,14 @@ static struct gdsc bps_gdsc = {
 
 static struct gdsc ife_0_gdsc = {
 	.gdscr = 0x9004,
-	.pd = { .name = "ife_0_gdsc" },
+	.pd = { .name = "ife0" },
 	.parent = &titan_top_gdsc.pd,
 	.pwrsts = PWRSTS_OFF_ON,
 };
 
 static struct gdsc ife_1_gdsc = {
 	.gdscr = 0xa004,
-	.pd = { .name = "ife_1_gdsc" },
+	.pd = { .name = "ife1" },
 	.parent = &titan_top_gdsc.pd,
 	.pwrsts = PWRSTS_OFF_ON,
 };
