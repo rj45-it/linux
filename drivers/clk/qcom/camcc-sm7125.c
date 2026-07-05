@@ -952,9 +952,7 @@ static struct gdsc ipe_0_gdsc = {
 	.pwrsts = PWRSTS_OFF_ON,
 };
 
-static struct clk_hw *cam_cc_sm7125_hws[] = {
-	[CAM_CC_PLL2_OUT_EARLY] = &cam_cc_pll2_out_early.hw,
-};
+static struct clk_hw *cam_cc_sm7125_hws[] = {};
 
 static struct clk_regmap *cam_cc_sm7125_clocks[] = {
 	[CAM_CC_BPS_AHB_CLK]          = &cam_cc_bps_ahb_clk.clkr,
@@ -1101,6 +1099,12 @@ static int cam_cc_sm7125_probe(struct platform_device *pdev)
 	clk_fabia_pll_configure(&cam_cc_pll1, regmap, &cam_cc_pll1_config);
 	clk_agera_pll_configure(&cam_cc_pll2, regmap, &cam_cc_pll2_config);
 	clk_fabia_pll_configure(&cam_cc_pll3, regmap, &cam_cc_pll3_config);
+
+	ret = devm_clk_hw_register(&pdev->dev, &cam_cc_pll2_out_early.hw);
+	if (ret) {
+		dev_err(&pdev->dev, "Failed to register cam_cc_pll2_out_early\n");
+		goto err_put_rpm;
+	}
 
 	ret = qcom_cc_really_probe(pdev, &cam_cc_sm7125_desc, regmap);
 	if (ret) {
