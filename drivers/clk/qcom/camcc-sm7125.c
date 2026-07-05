@@ -1035,11 +1035,11 @@ static struct clk_regmap *cam_cc_sm7125_clocks[] = {
 };
 
 static struct gdsc *cam_cc_sm7125_gdscs[] = {
-	[0] = &titan_top_gdsc,
-	[1] = &bps_gdsc,
-	[2] = &ife_0_gdsc,
-	[3] = &ife_1_gdsc,
-	[4] = &ipe_0_gdsc,
+	[0] = &bps_gdsc,
+	[1] = &ife_0_gdsc,
+	[2] = &ife_1_gdsc,
+	[3] = &ipe_0_gdsc,
+	[4] = &titan_top_gdsc,
 };
 
 static const struct regmap_config cam_cc_sm7125_regmap_config = {
