@@ -922,6 +922,7 @@ static struct gdsc titan_top_gdsc = {
 	.gdscr = 0xb134,
 	.pd = { .name = "titan_top_gdsc" },
 	.pwrsts = PWRSTS_OFF_ON,
+	.flags = ALWAYS_ON,
 };
 
 static struct gdsc bps_gdsc = {
