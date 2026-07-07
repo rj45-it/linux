@@ -84,8 +84,14 @@ static int clk_branch_wait(const struct clk_branch *br, bool enabling,
 				return 0;
 			udelay(1);
 		}
+		{
+			u32 __dbg_val = 0;
+			regmap_read(br->clkr.regmap, br->halt_reg, &__dbg_val);
+			pr_err("clk-branch-debug: %s halt_reg=0x%x val=0x%08x halt_bit=%d halt_check=%d\n",
+			name, br->halt_reg, __dbg_val, br->halt_bit, br->halt_check);
+		}
 		WARN(1, "%s status stuck at 'o%s'", name,
-				enabling ? "ff" : "n");
+		enabling ? "ff" : "n");
 		return -EBUSY;
 	}
 	return 0;
