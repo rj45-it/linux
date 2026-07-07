@@ -922,7 +922,7 @@ static struct gdsc titan_top_gdsc = {
 	.gdscr = 0xb134,
 	.pd = { .name = "top" },
 	.pwrsts = PWRSTS_OFF_ON,
-	.flags = ALWAYS_ON,
+	.flags = ALWAYS_ON | POLL_CFG_GDSCR,
 };
 
 static struct gdsc bps_gdsc = {
@@ -930,6 +930,7 @@ static struct gdsc bps_gdsc = {
 	.pd = { .name = "bps_gdsc" },
 	.parent = &titan_top_gdsc.pd,
 	.pwrsts = PWRSTS_OFF_ON,
+	.flags = POLL_CFG_GDSCR,
 };
 
 static struct gdsc ife_0_gdsc = {
@@ -937,6 +938,7 @@ static struct gdsc ife_0_gdsc = {
 	.pd = { .name = "ife0" },
 	.parent = &titan_top_gdsc.pd,
 	.pwrsts = PWRSTS_OFF_ON,
+	.flags = POLL_CFG_GDSCR,
 };
 
 static struct gdsc ife_1_gdsc = {
@@ -944,6 +946,7 @@ static struct gdsc ife_1_gdsc = {
 	.pd = { .name = "ife1" },
 	.parent = &titan_top_gdsc.pd,
 	.pwrsts = PWRSTS_OFF_ON,
+	.flags = POLL_CFG_GDSCR,
 };
 
 static struct gdsc ipe_0_gdsc = {
@@ -951,6 +954,7 @@ static struct gdsc ipe_0_gdsc = {
 	.pd = { .name = "ipe_0_gdsc" },
 	.parent = &titan_top_gdsc.pd,
 	.pwrsts = PWRSTS_OFF_ON,
+	.flags = POLL_CFG_GDSCR,
 };
 
 static struct clk_hw *cam_cc_sm7125_hws[] = {};
