@@ -6,6 +6,8 @@
 
 &camcc {
 	compatible = "qcom,sm7125-camcc";
+	power-domains = <&rpmhpd SC7180_CX>;
+	required-opps = <&rpmhpd_opp_svs>;
 };
 
 &camss {
