@@ -174,6 +174,7 @@ static int gdsc_toggle_logic(struct gdsc *sc, enum gdsc_status status,
 		udelay(1);
 	}
 
+	pr_err("gdsc-debug: %s toggle start, target=%s\n", sc->pd.name, status ? "ON" : "OFF");
 	ret = gdsc_poll_status(sc, status);
 	if (ret) {
 		u32 __dbg_gdscr = 0, __dbg_cfg = 0;
@@ -182,6 +183,8 @@ static int gdsc_toggle_logic(struct gdsc *sc, enum gdsc_status status,
 			regmap_read(sc->regmap, sc->gdscr + 0x4, &__dbg_cfg);
 		pr_err("gdsc-debug: %s gdscr_reg=0x%x val=0x%08x cfg_gdscr=0x%08x flags=0x%x\n",
 		       sc->pd.name, sc->gdscr, __dbg_gdscr, __dbg_cfg, sc->flags);
+	} else {
+		pr_err("gdsc-debug: %s toggle SUCCESS\n", sc->pd.name);
 	}
 	WARN(ret, "%s status stuck at 'o%s'", sc->pd.name, status ? "ff" : "n");
 
@@ -268,6 +271,8 @@ static int gdsc_enable(struct generic_pm_domain *domain)
 {
 	struct gdsc *sc = domain_to_gdsc(domain);
 	int ret;
+
+	pr_err("gdsc-debug: %s enable() called, pwrsts=%d\n", sc->pd.name, sc->pwrsts);
 
 	if (sc->pwrsts == PWRSTS_ON)
 		return gdsc_deassert_reset(sc);
@@ -410,6 +415,8 @@ static int gdsc_init(struct gdsc *sc)
 	if (on < 0)
 		return on;
 
+	pr_err("gdsc-debug: %s init check, on=%d, flags=0x%x\n", sc->pd.name, on, sc->flags);
+
 	if (on) {
 		/* The regulator must be on, sync the kernel state */
 		if (sc->rsupply) {
@@ -444,7 +451,10 @@ static int gdsc_init(struct gdsc *sc)
 			gdsc_retain_ff_on(sc);
 	} else if (sc->flags & ALWAYS_ON) {
 		/* If ALWAYS_ON GDSCs are not ON, turn them ON */
-		gdsc_enable(&sc->pd);
+		int __dbg_ret;
+		pr_err("gdsc-debug: %s ALWAYS_ON but not on at init, forcing\n", sc->pd.name);
+		__dbg_ret = gdsc_enable(&sc->pd);
+		pr_err("gdsc-debug: %s forced enable ret=%d\n", sc->pd.name, __dbg_ret);
 		on = true;
 	}
 
