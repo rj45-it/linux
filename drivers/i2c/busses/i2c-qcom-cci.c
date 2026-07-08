@@ -592,6 +592,7 @@ static int cci_probe(struct platform_device *pdev)
 		return dev_err_probe(dev, -EINVAL, "not enough clocks in DT\n");
 	cci->nclocks = ret;
 
+	pr_err("cci-debug: about to enable clocks for %s\n", dev_name(dev));
 	ret = cci_enable_clocks(cci);
 	if (ret < 0)
 		return ret;
