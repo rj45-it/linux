@@ -20,6 +20,7 @@
 #include <linux/pm_domain.h>
 #include <linux/slab.h>
 #include <linux/videodev2.h>
+#include <linux/io.h>
 
 #include <media/media-device.h>
 #include <media/v4l2-async.h>
@@ -2514,6 +2515,21 @@ static int camss_probe(struct platform_device *pdev)
 	pr_err("camss-debug: icc_get done at probe, icc_path_num=%d\n", camss->res->icc_path_num);
 	if (ret < 0)
 		return ret;
+
+	{
+		void __iomem *cpas_top = ioremap(0xac40000, 0x8);
+		if (cpas_top) {
+			u32 v0 = readl(cpas_top + 0x0);
+			u32 v4 = readl(cpas_top + 0x4);
+			pr_err("cpas-hw-debug: camera_ver major=%u minor=%u incr=%u\n",
+			       (v0 >> 0x10) & 0xff, (v0 >> 0x8) & 0xff, v0 & 0xff);
+			pr_err("cpas-hw-debug: cpas_ver major=%u minor=%u incr=%u\n",
+			       (v4 >> 0x1c) & 0xf, (v4 >> 0x10) & 0xfff, v4 & 0xffff);
+			iounmap(cpas_top);
+		} else {
+			pr_err("cpas-hw-debug: ioremap failed\n");
+		}
+	}
 
 	ret = camss_configure_pd(camss);
 	if (ret < 0) {
