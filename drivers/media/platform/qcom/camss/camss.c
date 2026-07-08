@@ -2753,10 +2753,14 @@ static int __maybe_unused camss_runtime_resume(struct device *dev)
 	int i;
 	int ret;
 
+	pr_err("camss-debug: runtime_resume called, icc_path_num=%d\n", camss->res->icc_path_num);
+
 	for (i = 0; i < camss->res->icc_path_num; i++) {
 		ret = icc_set_bw(camss->icc_path[i],
 				 icc_res[i].icc_bw_tbl.avg,
-				 icc_res[i].icc_bw_tbl.peak);
+		   icc_res[i].icc_bw_tbl.peak);
+		pr_err("camss-debug: icc_set_bw[%d] avg=%u peak=%u ret=%d\n",
+		       i, icc_res[i].icc_bw_tbl.avg, icc_res[i].icc_bw_tbl.peak, ret);
 		if (ret)
 			return ret;
 	}
