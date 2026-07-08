@@ -610,6 +610,7 @@ static int cci_probe(struct platform_device *pdev)
 			 cci_clk_rate, cci->data->cci_clk_rate);
 	}
 
+	pr_err("cci-debug: about to enable clocks for %s\n", dev_name(dev));
 	ret = cci_enable_clocks(cci);
 	if (ret < 0)
 		return ret;

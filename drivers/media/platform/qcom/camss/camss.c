@@ -2510,6 +2510,9 @@ static int camss_probe(struct platform_device *pdev)
 
 	ret = camss_icc_get(camss);
 	if (ret < 0)
+		goto err_genpd_cleanup;
+	pr_err("camss-debug: icc_get done at probe, icc_path_num=%d\n", camss->res->icc_path_num);
+	if (ret < 0)
 		return ret;
 
 	ret = camss_configure_pd(camss);
