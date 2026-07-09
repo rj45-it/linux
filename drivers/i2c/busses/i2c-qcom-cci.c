@@ -12,6 +12,56 @@
 #include <linux/platform_device.h>
 #include <linux/pm_runtime.h>
 
+/* --- ported from downstream cam150_cpas110 --- */
+#define CAMNOC_PHYS_BASE	0xac42000
+#define CAMNOC_SIZE		0x5000
+
+struct camnoc_reg { u32 offset; u32 value; };
+
+static const struct camnoc_reg camnoc_init_regs[] = {
+	/* SBM wake-up */
+	{ 0x2080, 0x2 },		/* SBM_FLAGOUTCLR0_LOW */
+	{ 0x2040, 0x3F },		/* SBM_FAULTINEN0_LOW */
+	/* CDM */
+	{ 0x30, 0x22222222 }, { 0x34, 0x22222222 }, { 0x38, 0x2 },
+	/* IFE02 */
+	{ 0x430, 0x66665433 }, { 0x434, 0x66666666 }, { 0x438, 0x3 },
+	{ 0x440, 0xFFFFFF00 }, { 0x448, 0x1 },
+	/* IFE13 */
+	{ 0x830, 0x66665433 }, { 0x834, 0x66666666 }, { 0x838, 0x3 },
+	{ 0x840, 0xFFFFFF00 }, { 0x848, 0x1 },
+	/* IPE_BPS_LRME_READ */
+	{ 0xc30, 0x33333333 }, { 0xc34, 0x33333333 },
+	/* IPE_BPS_LRME_WRITE */
+	{ 0x1030, 0x33333333 }, { 0x1034, 0x33333333 }, { 0x1038, 0x3 },
+	/* JPEG */
+	{ 0x1430, 0x22222222 }, { 0x1434, 0x22222222 }, { 0x1438, 0x22 },
+};
+
+static void camnoc_test_init(void)
+{
+	static bool done;
+	void __iomem *base;
+	int i;
+
+	if (done)
+		return;
+	done = true;
+
+	base = ioremap(CAMNOC_PHYS_BASE, CAMNOC_SIZE);
+	if (!base) {
+		pr_err("camnoc-test: ioremap failed\n");
+		return;
+	}
+
+	for (i = 0; i < ARRAY_SIZE(camnoc_init_regs); i++)
+		writel(camnoc_init_regs[i].value, base + camnoc_init_regs[i].offset);
+
+	pr_err("camnoc-test: wrote %zu CAMNOC registers\n", ARRAY_SIZE(camnoc_init_regs));
+	iounmap(base);
+}
+/* --- end temporary test --- */
+
 #define CCI_HW_VERSION				0x0
 #define CCI_RESET_CMD				0x004
 #define CCI_RESET_CMD_MASK			0x0f73f3f7
@@ -529,6 +579,8 @@ static int cci_probe(struct platform_device *pdev)
 	struct cci *cci;
 	int ret, i;
 	u32 val;
+
+	camnoc_test_init();
 
 	cci = devm_kzalloc(dev, sizeof(*cci), GFP_KERNEL);
 	if (!cci)
