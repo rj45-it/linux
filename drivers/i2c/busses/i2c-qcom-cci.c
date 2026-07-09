@@ -610,6 +610,15 @@ static int cci_probe(struct platform_device *pdev)
 			 cci_clk_rate, cci->data->cci_clk_rate);
 	}
 
+	for (i = 0; i < cci->nclocks; i++) {
+		if (!strcmp(cci->clocks[i].id, "cci_src")) {
+			ret = clk_set_rate(cci->clocks[i].clk, cci->data->cci_clk_rate);
+			if (ret)
+				return dev_err_probe(dev, ret, "failed to set cci_src rate\n");
+			break;
+		}
+	}
+
 	pr_err("cci-debug: about to enable clocks for %s\n", dev_name(dev));
 	ret = cci_enable_clocks(cci);
 	if (ret < 0)
