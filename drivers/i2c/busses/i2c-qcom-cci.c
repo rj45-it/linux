@@ -469,27 +469,7 @@ static const struct i2c_algorithm cci_algo = {
 
 static int cci_enable_clocks(struct cci *cci)
 {
-	int i, ret;
-
-	for (i = 0; i < cci->nclocks; i++) {
-		if (!strcmp(cci->clocks[i].id, "cci_src")) {
-			ret = clk_set_rate(cci->clocks[i].clk, cci->data->cci_clk_rate);
-			if (ret)
-				goto err_disable;
-		}
-
-		ret = clk_prepare_enable(cci->clocks[i].clk);
-		if (ret)
-			goto err_disable;
-	}
-
-	return 0;
-
-	err_disable:
-	for (--i; i >= 0; i--)
-		clk_disable_unprepare(cci->clocks[i].clk);
-
-	return ret;
+	return clk_bulk_prepare_enable(cci->nclocks, cci->clocks);
 }
 
 static void cci_disable_clocks(struct cci *cci)
