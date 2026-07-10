@@ -14,6 +14,8 @@
 &camss {
 	compatible = "qcom,sm7125-camss";
 	status = "okay";
+	vdda-phy-supply = <&vreg_l4a_0p9>;
+	vdda-pll-supply = <&vreg_l3c_1p2>;
 };
 
 &cci0 {
