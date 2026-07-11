@@ -17,40 +17,42 @@
 	operating-points-v2 = <&camss_opp_table>;
 };
 
-camss_opp_table: opp-table-camss {
-	compatible = "operating-points-v2";
+/ {
+	camss_opp_table: opp-table-camss {
+		compatible = "operating-points-v2";
 
-	opp-19200000 {
-		opp-hz = /bits/ 64 <19200000>;
-		required-opps = <&rpmhpd_opp_low_svs>;
-	};
-	opp-150000000 {
-		opp-hz = /bits/ 64 <150000000>;
-		required-opps = <&rpmhpd_opp_low_svs>;
-	};
-	opp-240000000 {
-		opp-hz = /bits/ 64 <240000000>;
-		required-opps = <&rpmhpd_opp_low_svs>;
-	};
-	opp-270000000 {
-		opp-hz = /bits/ 64 <270000000>;
-		required-opps = <&rpmhpd_opp_svs>;
-	};
-	opp-360000000 {
-		opp-hz = /bits/ 64 <360000000>;
-		required-opps = <&rpmhpd_opp_svs>;
-	};
-	opp-432000000 {
-		opp-hz = /bits/ 64 <432000000>;
-		required-opps = <&rpmhpd_opp_svs_l1>;
-	};
-	opp-480000000 {
-		opp-hz = /bits/ 64 <480000000>;
-		required-opps = <&rpmhpd_opp_nom>;
-	};
-	opp-600000000 {
-		opp-hz = /bits/ 64 <600000000>;
-		required-opps = <&rpmhpd_opp_nom>;
+		opp-19200000 {
+			opp-hz = /bits/ 64 <19200000>;
+			required-opps = <&rpmhpd_opp_low_svs>;
+		};
+		opp-150000000 {
+			opp-hz = /bits/ 64 <150000000>;
+			required-opps = <&rpmhpd_opp_low_svs>;
+		};
+		opp-240000000 {
+			opp-hz = /bits/ 64 <240000000>;
+			required-opps = <&rpmhpd_opp_low_svs>;
+		};
+		opp-270000000 {
+			opp-hz = /bits/ 64 <270000000>;
+			required-opps = <&rpmhpd_opp_svs>;
+		};
+		opp-360000000 {
+			opp-hz = /bits/ 64 <360000000>;
+			required-opps = <&rpmhpd_opp_svs>;
+		};
+		opp-432000000 {
+			opp-hz = /bits/ 64 <432000000>;
+			required-opps = <&rpmhpd_opp_svs_l1>;
+		};
+		opp-480000000 {
+			opp-hz = /bits/ 64 <480000000>;
+			required-opps = <&rpmhpd_opp_nom>;
+		};
+		opp-600000000 {
+			opp-hz = /bits/ 64 <600000000>;
+			required-opps = <&rpmhpd_opp_nom>;
+		};
 	};
 };
 
