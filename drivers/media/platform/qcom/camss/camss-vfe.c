@@ -15,6 +15,7 @@
 #include <linux/of.h>
 #include <linux/platform_device.h>
 #include <linux/pm_domain.h>
+#include <linux/pm_opp.h>
 #include <linux/pm_runtime.h>
 #include <linux/spinlock_types.h>
 #include <linux/spinlock.h>
@@ -706,6 +707,9 @@ static int vfe_set_clock_rates(struct vfe_device *vfe)
 					rate);
 				return -EINVAL;
 			}
+
+			ret = dev_pm_opp_set_rate(dev, rate);
+			dev_err(dev, "opp set rate %ld: ret=%d\n", rate, ret);
 
 			ret = clk_set_rate(clock->clk, rate);
 			if (ret < 0) {

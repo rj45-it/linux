@@ -18,6 +18,7 @@
 #include <linux/of_graph.h>
 #include <linux/pm_runtime.h>
 #include <linux/pm_domain.h>
+#include <linux/pm_opp.h>
 #include <linux/slab.h>
 #include <linux/videodev2.h>
 #include <linux/io.h>
@@ -2537,6 +2538,9 @@ static int camss_probe(struct platform_device *pdev)
 		return ret;
 	}
 
+	ret = dev_pm_opp_of_add_table(dev);
+	dev_err(dev, "OPP table add result: %d (0=ok, -ENODEV=no table found)\n", ret);
+
 	ret = camss_init_subdevices(camss);
 	if (ret < 0)
 		goto err_genpd_cleanup;
@@ -2642,6 +2646,8 @@ static void camss_remove(struct platform_device *pdev)
 		camss_delete(camss);
 
 	camss_genpd_cleanup(camss);
+
+	dev_pm_opp_of_remove_table(&pdev->dev);
 }
 
 static const struct camss_resources msm8916_resources = {
