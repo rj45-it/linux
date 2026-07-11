@@ -994,3 +994,8 @@
 	vdd-3.3-ch1-supply = <&vreg_l11c_3p3>;
 	status = "okay";
 };
+
+&camss {
+	vdda-phy-supply = <&vreg_l4a_0p9>;
+	vdda-pll-supply = <&vreg_l3c_1p2>;
+};
