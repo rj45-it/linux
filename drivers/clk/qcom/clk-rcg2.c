@@ -132,14 +132,17 @@ static int update_config(struct clk_rcg2 *rcg)
 
 	{
 		struct clk_hw *parent = clk_hw_get_parent(hw);
+		struct clk_hw *gparent = parent ? clk_hw_get_parent(parent) : NULL;
 		u32 cfg = 0;
 
 		regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CFG_REG, &cfg);
-		pr_err("%s: rcg update failed. cfg=0x%08x parked_cfg=0x%08x parent=%s parent_enabled=%d parent_rate=%lu\n",
+		pr_err("%s: rcg update failed. cfg=0x%08x parked_cfg=0x%08x parent=%s parent_enabled=%d gparent=%s gparent_enabled=%d gparent_rate=%lu\n",
 		       name, cfg, rcg->parked_cfg,
-		       parent ? clk_hw_get_name(parent) : "NULL",
+	 parent ? clk_hw_get_name(parent) : "NULL",
 		       parent ? clk_hw_is_enabled(parent) : -1,
-		       parent ? clk_hw_get_rate(parent) : 0);
+		       gparent ? clk_hw_get_name(gparent) : "NULL",
+		       gparent ? clk_hw_is_enabled(gparent) : -1,
+		       gparent ? clk_hw_get_rate(gparent) : 0);
 	}
 	WARN(1, "%s: rcg didn't update its configuration.", name);
 	return -EBUSY;
