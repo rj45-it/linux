@@ -814,6 +814,10 @@ int vfe_get(struct vfe_device *vfe)
 		if (ret < 0)
 			goto error_pm_runtime_get;
 
+		dev_err(vfe->camss->dev,
+			"VFEGET: vfe%u HW_VERSION after clocks enabled=0x%08x\n",
+			vfe->id, readl_relaxed(vfe->base));
+
 		ret = vfe_set_clock_rates(vfe);
 		if (ret < 0)
 			goto error_clocks_disable;
@@ -1546,6 +1550,9 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
 		dev_err(dev, "could not map memory\n");
 		return PTR_ERR(vfe->base);
 	}
+
+	dev_err(dev, "VFEPROBE: vfe%u base=%px HW_VERSION=0x%08x\n",
+		vfe->id, vfe->base, readl_relaxed(vfe->base));
 
 	/* Interrupt */
 
