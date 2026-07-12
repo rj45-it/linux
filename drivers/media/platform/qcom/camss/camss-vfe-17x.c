@@ -217,7 +217,15 @@ static void vfe_global_reset(struct vfe_device *vfe)
 	/* Make sure IRQ mask has been written before resetting */
 	wmb();
 
+	pr_err("VFERESET: vfe%u mask0 readback right after write = 0x%08x\n",
+		vfe->id, readl_relaxed(vfe->base + VFE_IRQ_MASK_0));
+
 	writel_relaxed(reset_bits, vfe->base + VFE_GLOBAL_RESET_CMD);
+
+	pr_err("VFERESET: vfe%u reset_bits=0x%08x written, status0=0x%08x mask0=0x%08x (immediately after trigger)\n",
+		vfe->id, reset_bits,
+	readl_relaxed(vfe->base + VFE_IRQ_STATUS_0),
+		readl_relaxed(vfe->base + VFE_IRQ_MASK_0));
 }
 
 static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
