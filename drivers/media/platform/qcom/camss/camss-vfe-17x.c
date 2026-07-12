@@ -350,6 +350,9 @@ static irqreturn_t vfe_isr(int irq, void *dev)
 	status0 = readl_relaxed(vfe->base + VFE_IRQ_STATUS_0);
 	status1 = readl_relaxed(vfe->base + VFE_IRQ_STATUS_1);
 
+	pr_err("VFEISR: vfe%u irq fired status0=0x%08x status1=0x%08x reset_ack_bit=%d\n",
+	       vfe->id, status0, status1, !!(status0 & STATUS_0_RESET_ACK));
+
 	writel_relaxed(status0, vfe->base + VFE_IRQ_CLEAR_0);
 	writel_relaxed(status1, vfe->base + VFE_IRQ_CLEAR_1);
 
