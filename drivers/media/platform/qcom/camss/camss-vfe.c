@@ -1545,6 +1545,15 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
 
 	/* Memory */
 
+	{
+		struct resource *r = platform_get_resource_byname(pdev, IORESOURCE_MEM, res->reg[0]);
+
+		dev_err(dev, "VFEPROBE: vfe%u reg_name=%s resolved phys start=0x%llx end=0x%llx\n",
+			vfe->id, res->reg[0],
+	  r ? (unsigned long long)r->start : 0ULL,
+			r ? (unsigned long long)r->end : 0ULL);
+	}
+
 	vfe->base = devm_platform_ioremap_resource_byname(pdev, res->reg[0]);
 	if (IS_ERR(vfe->base)) {
 		dev_err(dev, "could not map memory\n");
