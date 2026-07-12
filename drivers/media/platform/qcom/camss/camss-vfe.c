@@ -802,14 +802,14 @@ int vfe_get(struct vfe_device *vfe)
 		if (ret < 0)
 			goto error_domain_off;
 
-		ret = vfe_set_clock_rates(vfe);
-		if (ret < 0)
-			goto error_pm_runtime_get;
-
 		ret = camss_enable_clocks(vfe->nclocks, vfe->clock,
 					  vfe->camss->dev);
 		if (ret < 0)
 			goto error_pm_runtime_get;
+
+		ret = vfe_set_clock_rates(vfe);
+		if (ret < 0)
+			goto error_clocks_disable;
 
 		ret = vfe_reset(vfe);
 		if (ret < 0)
@@ -830,6 +830,9 @@ int vfe_get(struct vfe_device *vfe)
 	mutex_unlock(&vfe->power_lock);
 
 	return 0;
+
+error_clocks_disable:
+	camss_disable_clocks(vfe->nclocks, vfe->clock);
 
 error_reset:
 	camss_disable_clocks(vfe->nclocks, vfe->clock);
