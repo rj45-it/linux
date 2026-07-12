@@ -2518,7 +2518,7 @@ static int camss_probe(struct platform_device *pdev)
 		return ret;
 
 	{
-		void __iomem *cpas_top = ioremap(0xac40000, 0x8);
+		void __iomem *cpas_top = ioremap(0xac40000, 0x24);
 		if (cpas_top) {
 			u32 v0 = readl(cpas_top + 0x0);
 			u32 v4 = readl(cpas_top + 0x4);
@@ -2526,6 +2526,18 @@ static int camss_probe(struct platform_device *pdev)
 			       (v0 >> 0x10) & 0xff, (v0 >> 0x8) & 0xff, v0 & 0xff);
 			pr_err("cpas-hw-debug: cpas_ver major=%u minor=%u incr=%u\n",
 			       (v4 >> 0x1c) & 0xf, (v4 >> 0x10) & 0xfff, v4 & 0xffff);
+
+			pr_err("cpas-hw-debug: pre-write 0x10=0x%08x 0x14=0x%08x 0x18=0x%08x\n",
+			       readl(cpas_top + 0x10), readl(cpas_top + 0x14), readl(cpas_top + 0x18));
+
+			writel(0x1, cpas_top + 0x10);
+			writel(0x1, cpas_top + 0x14);
+			writel(0x1, cpas_top + 0x18);
+			wmb();
+
+			pr_err("cpas-hw-debug: post-write 0x10=0x%08x 0x14=0x%08x 0x18=0x%08x\n",
+			       readl(cpas_top + 0x10), readl(cpas_top + 0x14), readl(cpas_top + 0x18));
+
 			iounmap(cpas_top);
 		} else {
 			pr_err("cpas-hw-debug: ioremap failed\n");
