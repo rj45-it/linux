@@ -415,7 +415,13 @@ int vfe_reset(struct vfe_device *vfe)
 	time = wait_for_completion_timeout(&vfe->reset_complete,
 					   msecs_to_jiffies(VFE_RESET_TIMEOUT_MS));
 	if (!time) {
+		u32 s0 = readl_relaxed(vfe->base + 0x06c);
+		u32 mask0 = readl_relaxed(vfe->base + 0x064);
+
 		dev_err(vfe->camss->dev, "VFE%u reset timeout\n", vfe->id);
+		dev_err(vfe->camss->dev,
+			"VFE%u post-timeout readback: status0=0x%08x mask0=0x%08x base=%px\n",
+	  vfe->id, s0, mask0, vfe->base);
 		return -EIO;
 	}
 
