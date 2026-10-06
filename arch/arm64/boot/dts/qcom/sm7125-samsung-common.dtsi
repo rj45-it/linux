@@ -536,6 +536,7 @@
 };
 
 &pm6150_rtc {
+	allow-set-time;
 	status = "okay";
 };
 
