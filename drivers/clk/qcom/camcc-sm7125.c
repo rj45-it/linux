@@ -939,7 +939,7 @@ static struct gdsc ife_0_gdsc = {
 	.pd = { .name = "ife0" },
 	.parent = &titan_top_gdsc.pd,
 	.pwrsts = PWRSTS_OFF_ON,
-	.flags = POLL_CFG_GDSCR,
+	.flags = ALWAYS_ON | POLL_CFG_GDSCR,
 };
 
 static struct gdsc ife_1_gdsc = {
@@ -947,7 +947,7 @@ static struct gdsc ife_1_gdsc = {
 	.pd = { .name = "ife1" },
 	.parent = &titan_top_gdsc.pd,
 	.pwrsts = PWRSTS_OFF_ON,
-	.flags = POLL_CFG_GDSCR,
+	.flags = ALWAYS_ON | POLL_CFG_GDSCR,
 };
 
 static struct gdsc ipe_0_gdsc = {

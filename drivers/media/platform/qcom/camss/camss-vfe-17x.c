@@ -217,8 +217,13 @@ static void vfe_global_reset(struct vfe_device *vfe)
 	/* Make sure IRQ mask has been written before resetting */
 	wmb();
 
-	pr_err("VFERESET: vfe%u mask0 readback right after write = 0x%08x\n",
-		vfe->id, readl_relaxed(vfe->base + VFE_IRQ_MASK_0));
+	{
+		u32 rb = readl_relaxed(vfe->base + VFE_IRQ_MASK_0);
+
+		pr_err("VFERESET: vfe%u mask0 readback = 0x%08x\n", vfe->id, rb);
+		if (rb != BIT(31))
+			return;
+	}
 
 	writel_relaxed(reset_bits, vfe->base + VFE_GLOBAL_RESET_CMD);
 
