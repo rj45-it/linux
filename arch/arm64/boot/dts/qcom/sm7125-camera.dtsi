@@ -15,6 +15,30 @@
 	compatible = "qcom,sm7125-camss";
 	status = "okay";
 	operating-points-v2 = <&camss_opp_table>;
+	clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+		 <&camcc CAM_CC_CPAS_AHB_CLK>,
+		 <&camcc CAM_CC_IFE_0_CSID_CLK>,
+		 <&camcc CAM_CC_IFE_1_CSID_CLK>,
+		 <&camcc CAM_CC_IFE_LITE_CSID_CLK>,
+		 <&camcc CAM_CC_CSIPHY0_CLK>,
+		 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+		 <&camcc CAM_CC_CSIPHY1_CLK>,
+		 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
+		 <&camcc CAM_CC_CSIPHY2_CLK>,
+		 <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
+		 <&camcc CAM_CC_CSIPHY3_CLK>,
+		 <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
+		 <&gcc GCC_CAMERA_AHB_CLK>,
+		 <&gcc GCC_CAMERA_HF_AXI_CLK>,
+		 <&camcc CAM_CC_SOC_AHB_CLK>,
+		 <&camcc CAM_CC_IFE_0_AXI_CLK>,
+		 <&camcc CAM_CC_IFE_0_CLK>,
+		 <&camcc CAM_CC_IFE_0_CPHY_RX_CLK>,
+		 <&camcc CAM_CC_IFE_1_AXI_CLK>,
+		 <&camcc CAM_CC_IFE_1_CLK>,
+		 <&camcc CAM_CC_IFE_1_CPHY_RX_CLK>,
+		 <&camcc CAM_CC_IFE_LITE_CLK>,
+		 <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>;
 };
 
 / {
@@ -59,6 +83,12 @@
 &cci0 {
 	compatible = "qcom,sm7125-cci", "qcom,msm8996-cci";
 	status = "okay";
+	clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+		 <&camcc CAM_CC_SOC_AHB_CLK>,
+		 <&camcc CAM_CC_SLOW_AHB_CLK_SRC>,
+		 <&camcc CAM_CC_CPAS_AHB_CLK>,
+		 <&camcc CAM_CC_CCI_0_CLK>,
+		 <&camcc CAM_CC_CCI_0_CLK_SRC>;
 	assigned-clocks = <&camcc CAM_CC_CCI_0_CLK_SRC>;
 	assigned-clock-rates = <37500000>;
 };
@@ -66,6 +96,12 @@
 &cci1 {
 	compatible = "qcom,sm7125-cci", "qcom,msm8996-cci";
 	status = "okay";
+	clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+		 <&camcc CAM_CC_SOC_AHB_CLK>,
+		 <&camcc CAM_CC_SLOW_AHB_CLK_SRC>,
+		 <&camcc CAM_CC_CPAS_AHB_CLK>,
+		 <&camcc CAM_CC_CCI_1_CLK>,
+		 <&camcc CAM_CC_CCI_1_CLK_SRC>;
 	assigned-clocks = <&camcc CAM_CC_CCI_1_CLK_SRC>;
 	assigned-clock-rates = <37500000>;
 };
