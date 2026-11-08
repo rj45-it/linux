@@ -258,11 +258,7 @@ static struct clk_alpha_pll_postdiv cam_cc_pll1_out_even = {
 /* 1920MHz */
 static const struct alpha_pll_config cam_cc_pll2_config = {
 	.l = 0x64,
-	.post_div_val = 0x3 << 8,
-	.post_div_mask = 0x3 << 8,
-	.aux_output_mask = BIT(1),
-	.main_output_mask = BIT(0),
-	.early_output_mask = BIT(3),
+	.user_ctl_val = 0x0000030f,
 	.config_ctl_hi_val = 0x400003d2,
 	.config_ctl_val = 0x20000800,
 };
