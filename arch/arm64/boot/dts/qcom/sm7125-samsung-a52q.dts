@@ -67,3 +67,8 @@
 &venus {
 	firmware-name = "qcom/sm7125/a52q/venus.mbn";
 };
+
+&s2mpb03_l4 {
+	regulator-min-microvolt = <1200000>;
+	regulator-max-microvolt = <1200000>;
+};
