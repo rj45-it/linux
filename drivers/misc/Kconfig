@@ -649,4 +649,8 @@ source "drivers/misc/uacce/Kconfig"
 source "drivers/misc/pvpanic/Kconfig"
 source "drivers/misc/mchp_pci1xxxx/Kconfig"
 source "drivers/misc/keba/Kconfig"
+config CAM_BRINGUP
+	bool "Temporary camera bring-up probe"
+	depends on I2C && REGULATOR && COMMON_CLK && GPIOLIB
+
 endmenu
