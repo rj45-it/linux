@@ -1091,6 +1091,18 @@ static int cam_cc_sm7125_probe(struct platform_device *pdev)
 		return ret;
 	}
 
+	ret = pm_clk_add(&pdev->dev, "iface");
+	if (ret < 0) {
+		dev_err(&pdev->dev, "Failed to add iface clock\n");
+		return ret;
+	}
+
+	ret = pm_clk_add(&pdev->dev, "xo");
+	if (ret < 0) {
+		dev_err(&pdev->dev, "Failed to add xo clock\n");
+		return ret;
+	}
+
 	ret = pm_runtime_resume_and_get(&pdev->dev);
 	if (ret)
 		return ret;
