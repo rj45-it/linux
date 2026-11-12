@@ -1058,15 +1058,6 @@
 	};
 };
 
-&tlmm {
-	cam_mclk0_active: cam-mclk0-active-state {
-		pins = "gpio13";
-		function = "cam_mclk";
-		drive-strength = <4>;
-		bias-disable;
-	};
-
-&soc {
 	cam-bringup {
 		compatible = "wojtekojtek,cam-bringup";
 		i2c-bus = <&cci0_i2c0>;
