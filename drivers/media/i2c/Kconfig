@@ -158,6 +158,16 @@ config VIDEO_IMX219
 	  To compile this driver as a module, choose M here: the
 	  module will be called imx219.
 
+config VIDEO_IMX682
+	tristate "Sony IMX682 sensor support"
+	depends on I2C && VIDEO_DEV
+	select MEDIA_CONTROLLER
+	select VIDEO_V4L2_SUBDEV_API
+	select V4L2_FWNODE
+	help
+	  This is a V4L2 sensor driver for the Sony IMX682 64MP camera,
+	  found in the Samsung Galaxy A52.
+
 config VIDEO_IMX258
 	tristate "Sony IMX258 sensor support"
 	select V4L2_CCI_I2C

@@ -1059,13 +1059,12 @@
 };
 
 &tlmm {
-	cam_bringup_mclk0: cam-bringup-mclk0-state {
+	cam_mclk0_active: cam-mclk0-active-state {
 		pins = "gpio13";
 		function = "cam_mclk";
 		drive-strength = <4>;
 		bias-disable;
 	};
-};
 
 &soc {
 	cam-bringup {
@@ -1079,5 +1078,80 @@
 		avdd-gpios = <&tlmm 63 GPIO_ACTIVE_HIGH>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&cam_bringup_mclk0>;
+
+	cam_mclk0_sleep: cam-mclk0-sleep-state {
+		pins = "gpio13";
+		function = "cam_mclk";
+		drive-strength = <2>;
+		bias-pull-down;
+	};
+
+	imx682_reset_active: imx682-reset-active-state {
+		pins = "gpio30";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	imx682_avdd_active: imx682-avdd-active-state {
+		pins = "gpio63";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+};
+
+&cci0 {
+	status = "okay";
+};
+
+&camss {
+	status = "okay";
+
+	ports {
+		port@0 {
+			reg = <0>;
+			csiphy0_ep: endpoint {
+				clock-lanes = <7>;
+				data-lanes = <0 1 2 3>;
+				remote-endpoint = <&imx682_ep>;
+			};
+		};
+	};
+};
+
+&cci0_i2c0 {
+	camera@1a {
+		compatible = "sony,imx682";
+		reg = <0x1a>;
+
+		clocks = <&camcc CAM_CC_MCLK0_CLK>;
+		clock-names = "mclk";
+
+		assigned-clocks = <&camcc CAM_CC_MCLK0_CLK>;
+		assigned-clock-rates = <24000000>;
+
+		vio-supply  = <&s2mpb03_l3>;
+		vana-supply = <&s2mpb03_l5>;
+		vdig-supply = <&s2mpb03_l2>;
+
+		reset-gpios = <&tlmm 30 GPIO_ACTIVE_HIGH>;
+		avdd-gpios  = <&tlmm 63 GPIO_ACTIVE_HIGH>;
+
+		pinctrl-names = "default", "sleep";
+		pinctrl-0 = <&cam_mclk0_active &imx682_reset_active &imx682_avdd_active>;
+		pinctrl-1 = <&cam_mclk0_sleep>;
+
+		rotation = <90>;
+		orientation = <0>;
+
+		port {
+			imx682_ep: endpoint {
+				clock-lanes = <7>;
+				data-lanes = <1 2 3 4>;
+				link-frequencies = /bits/ 64 <1708800000>;
+				remote-endpoint = <&csiphy0_ep>;
+			};
+		};
 	};
 };
