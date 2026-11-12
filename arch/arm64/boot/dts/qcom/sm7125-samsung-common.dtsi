@@ -1058,17 +1058,14 @@
 	};
 };
 
-	cam-bringup {
-		compatible = "wojtekojtek,cam-bringup";
-		i2c-bus = <&cci0_i2c0>;
-		clocks = <&camcc CAM_CC_MCLK0_CLK>;
-		vio-supply = <&s2mpb03_l3>;
-		vana-supply = <&s2mpb03_l5>;
-		vdig-supply = <&s2mpb03_l2>;
-		reset-gpios = <&tlmm 30 GPIO_ACTIVE_HIGH>;
-		avdd-gpios = <&tlmm 63 GPIO_ACTIVE_HIGH>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&cam_bringup_mclk0>;
+
+&tlmm {
+	cam_mclk0_active: cam-mclk0-active-state {
+		pins = "gpio13";
+		function = "cam_mclk";
+		drive-strength = <4>;
+		bias-disable;
+	};
 
 	cam_mclk0_sleep: cam-mclk0-sleep-state {
 		pins = "gpio13";
