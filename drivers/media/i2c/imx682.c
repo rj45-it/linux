@@ -1399,7 +1399,7 @@ static int imx682_probe(struct i2c_client *client)
 
 	pm_runtime_set_active(dev);
 	pm_runtime_enable(dev);
-	pm_runtime_idle(dev);
+	//pm_runtime_idle(dev);
 
 	ret = imx682_init_controls(imx682);
 	if (ret)
