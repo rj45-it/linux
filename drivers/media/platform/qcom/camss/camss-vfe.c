@@ -1559,9 +1559,6 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
 		return PTR_ERR(vfe->base);
 	}
 
-	dev_err(dev, "VFEPROBE: vfe%u base=%px HW_VERSION=0x%08x\n",
-		vfe->id, vfe->base, readl_relaxed(vfe->base));
-
 	/* Interrupt */
 
 	ret = platform_get_irq_byname(pdev, res->interrupt[0]);
