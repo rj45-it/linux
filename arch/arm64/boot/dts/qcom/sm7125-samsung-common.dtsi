@@ -1111,6 +1111,7 @@
 &cci0_i2c0 {
 	camera@1a {
 		compatible = "sony,imx682";
+		status = "disabled";
 		reg = <0x1a>;
 
 		clocks = <&camcc CAM_CC_MCLK0_CLK>;
