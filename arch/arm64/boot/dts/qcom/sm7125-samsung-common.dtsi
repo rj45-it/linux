@@ -1126,7 +1126,7 @@
 		vana-supply = <&s2mpb03_l5>;
 		vdig-supply = <&s2mpb03_l2>;
 
-		reset-gpios = <&tlmm 30 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&tlmm 30 GPIO_ACTIVE_LOW>;
 
 		pinctrl-names = "default", "sleep";
 		pinctrl-1 = <&cam_mclk0_sleep>;
