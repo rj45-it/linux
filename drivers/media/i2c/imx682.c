@@ -886,7 +886,8 @@ static int imx682_power_on(struct device *dev)
 	gpiod_set_value_cansleep(imx682->reset_gpio, 0);
 	usleep_range(20000, 20100); /* 20ms per vendor power sequence */
 	gpiod_set_value_cansleep(imx682->reset_gpio, 1);
-	usleep_range(500, 1000);
+	//usleep_range(500, 1000);
+	msleep(100);
 
 	return 0;
 
@@ -1387,9 +1388,9 @@ static int imx682_probe(struct i2c_client *client)
 	mutex_init(&imx682->mutex);
 	imx682->cur_mode = &imx682_supported_modes[0];
 
-	ret = imx682_power_on(dev);
-	if (ret)
-		goto err_mutex;
+	//ret = imx682_power_on(dev);
+	//if (ret)
+	//	goto err_mutex;
 
 	//ret = imx682_identify_module(imx682);
 	//if (ret)
