@@ -883,9 +883,9 @@ static int imx682_power_on(struct device *dev)
 	}
 
 	/* Reset is active high; deassert after rails + MCLK are stable */
-	gpiod_set_value_cansleep(imx682->reset_gpio, 1);
-	usleep_range(20000, 20100); /* 20ms per vendor power sequence */
 	gpiod_set_value_cansleep(imx682->reset_gpio, 0);
+	usleep_range(20000, 20100); /* 20ms per vendor power sequence */
+	gpiod_set_value_cansleep(imx682->reset_gpio, 1);
 	usleep_range(500, 1000);
 
 	return 0;
@@ -900,7 +900,7 @@ static int imx682_power_off(struct device *dev)
 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
 	struct imx682 *imx682 = to_imx682(sd);
 
-	gpiod_set_value_cansleep(imx682->reset_gpio, 1);
+	gpiod_set_value_cansleep(imx682->reset_gpio, 0);
 	clk_disable_unprepare(imx682->xclk);
 	regulator_bulk_disable(IMX682_NUM_SUPPLIES, imx682->supplies);
 
