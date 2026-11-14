@@ -1079,13 +1079,6 @@
 		drive-strength = <2>;
 		bias-disable;
 	};
-
-	imx682_avdd_active: imx682-avdd-active-state {
-		pins = "gpio63";
-		function = "gpio";
-		drive-strength = <2>;
-		bias-disable;
-	};
 };
 
 &cci0 {
@@ -1107,6 +1100,17 @@
 	};
 };
 
+&soc {
+	cam_avdd_en: cam-avdd-en {
+		compatible = "regulator-fixed";
+		regulator-name = "cam_avdd_en";
+		gpio = <&tlmm 63 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		regulator-boot-on;
+		regulator-always-on;
+	};
+};
+
 &cci0_i2c0 {
 	camera@1a {
 		compatible = "sony,imx682";
@@ -1123,10 +1127,8 @@
 		vdig-supply = <&s2mpb03_l2>;
 
 		reset-gpios = <&tlmm 30 GPIO_ACTIVE_HIGH>;
-		avdd-gpios  = <&tlmm 63 GPIO_ACTIVE_HIGH>;
 
 		pinctrl-names = "default", "sleep";
-		pinctrl-0 = <&cam_mclk0_active &imx682_reset_active &imx682_avdd_active>;
 		pinctrl-1 = <&cam_mclk0_sleep>;
 
 		rotation = <90>;
