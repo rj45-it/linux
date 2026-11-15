@@ -1277,7 +1277,7 @@ static const struct camss_subdev_resources csiphy_res_7180[] = {
 			"csiphy0_timer"
 		},
 		.clock_rate = {
-			{ 150000000, 270000000, 360000000 },
+			{ 150000000, 270000000, 360000000, 480000000 },
 			{ 300000000 },
 		},
 		.reg = { "csiphy0" },
@@ -1295,7 +1295,7 @@ static const struct camss_subdev_resources csiphy_res_7180[] = {
 			"csiphy1_timer"
 		},
 		.clock_rate = {
-			{ 150000000, 270000000, 360000000 },
+			{ 150000000, 270000000, 360000000, 480000000 },
 			{ 300000000 },
 		},
 		.reg = { "csiphy1" },
@@ -1313,7 +1313,7 @@ static const struct camss_subdev_resources csiphy_res_7180[] = {
 			"csiphy2_timer"
 		},
 		.clock_rate = {
-			{ 150000000, 270000000, 360000000 },
+			{ 150000000, 270000000, 360000000, 480000000 },
 			{ 300000000 },
 		},
 		.reg = { "csiphy2" },
@@ -1331,7 +1331,7 @@ static const struct camss_subdev_resources csiphy_res_7180[] = {
 			"csiphy3_timer"
 		},
 		.clock_rate = {
-			{ 150000000, 270000000, 360000000 },
+			{ 150000000, 270000000, 360000000, 480000000 },
 			{ 300000000 },
 		},
 		.reg = { "csiphy3" },
