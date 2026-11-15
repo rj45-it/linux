@@ -159,6 +159,9 @@ static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
 
 		if (csiphy->rate_set[i]) {
 			u64 min_rate = link_freq / 4;
+			dev_err(dev, "csiphy: link_freq=%lld min_rate=%llu nfreqs=%d freq[last]=%lu\n",
+				link_freq, min_rate, clock->nfreqs,
+				clock->nfreqs ? clock->freq[clock->nfreqs-1] : 0);
 			long round_rate;
 
 			camss_add_clock_margin(&min_rate);
