@@ -1388,14 +1388,13 @@ static int imx682_probe(struct i2c_client *client)
 	mutex_init(&imx682->mutex);
 	imx682->cur_mode = &imx682_supported_modes[0];
 
-	//ret = imx682_power_on(dev);
-	//if (ret)
-	//	goto err_mutex;
+	ret = imx682_power_on(dev);
+	if (ret)
+		goto err_mutex;
 
-	//ret = imx682_identify_module(imx682);
-	//if (ret)
-	//	goto err_power_off;
-	ret = 0; /* imx682_identify_module skipped for bring-up */
+	ret = imx682_identify_module(imx682);
+	if (ret)
+		goto err_power_off;
 
 	pm_runtime_set_active(dev);
 	pm_runtime_enable(dev);
