@@ -1332,7 +1332,7 @@ static int imx682_identify_module(struct imx682 *imx682)
 		return ret;
 
 	chip_id = (hi << 8) | lo;
-	dev_err(&imx682->client->dev, "imx682: chip_id read = 0x%04x (expected 0x%04x)\n",
+	dev_err(&client->dev, "imx682: chip_id read = 0x%04x (expected 0x%04x)\n",
 		chip_id, IMX682_CHIP_ID);
 	if (chip_id != IMX682_CHIP_ID) {
 		dev_err(&client->dev, "chip id mismatch: 0x%04x != 0x%04x\n",
